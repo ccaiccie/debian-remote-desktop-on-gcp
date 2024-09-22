@@ -24,11 +24,13 @@ if [ ! -f "$MARKER_FILE" ]; then
     # Allow XRDP to use the default GNOME session
     echo "gnome-session" > ~/.xsession
 
-    # Allow root login via XRDP by changing the password
-    echo "root:your_new_password" | sudo chpasswd
+    # Create the rdpuser and set password
+    sudo adduser --disabled-password --gecos "" rdpuser
+    echo "rdpuser:your_rdpuser_password" | sudo chpasswd
 
-    # Enable root login with a password by updating the SSH config
-    sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+    # Grant rdpuser sudo privileges
+    sudo usermod -aG sudo rdpuser
+    # Enable password login by updating the SSH config
     sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
     # Restart SSH service to apply changes
@@ -46,7 +48,7 @@ if [ ! -f "$MARKER_FILE" ]; then
     # Create a marker file to indicate that the installation is complete
     sudo touch "$MARKER_FILE"
     echo "XRDP and GNOME installation completed."
-        # Set GNOME desktop background to black and set window button layout min, max, close
+    # Set GNOME desktop background to black and set window button layout min, max, close
     echo -e "#!/bin/bash\n\n# Set the GNOME desktop background for the current user\ngsettings set org.gnome.desktop.background picture-uri \"\"\ngsettings set org.gnome.desktop.background primary-color \"#000000\"\ngsettings set org.gnome.desktop.background secondary-color \"#000000\"\ngsettings set org.gnome.desktop.background color-shading-type \"solid\"\n\n# Set the GNOME window button layout (minimize, maximize, close)\ngsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'\n" | sudo tee /etc/profile.d/set-background-and-buttons.sh
     sudo chmod +x /etc/profile.d/set-background.sh
     # Update the dconf database to apply settings
@@ -57,5 +59,6 @@ if [ ! -f "$MARKER_FILE" ]; then
     sudo dpkg -i vscode.deb
 
 else
-    echo "XRDP and GNOME already installed, skipping setup."
+    sudo apt update -y
+    sudo apt upgrade -y
 fi
