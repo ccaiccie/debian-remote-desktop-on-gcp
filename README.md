@@ -2,7 +2,7 @@
 
 This project consists of two files: 
 1. `debian-remote-desktop-on-gcp.sh`: A shell script to create a Google Cloud VM instance with Debian 12.
-2. `debian-remote-desktop-on-gcp_script.sh`: A startup script that installs GNOME, XRDP, configures root access, and installs Visual Studio Code on the VM.
+2. `debian-remote-desktop_script.sh`: A startup script that installs GNOME, XRDP, configures root access, and installs Visual Studio Code on the VM.
 
 ## Overview
 
@@ -45,9 +45,9 @@ Before you run the script, make sure you have authenticated with Google Cloud us
 gcloud auth login
 gcloud config set project <your-project-id>
 
-Run the script `emptydebian_v1.sh` to create the VM:
+Run the script `debian-remote-desktop.sh` to create the VM:
 
-bash emptydebian_v1.sh
+bash debian-remote-desktop.sh
 
 This will:
 - Create a **Debian 12** VM in **Google Cloud** using the latest Debian 12 image.
@@ -58,13 +58,13 @@ This will:
 Once the VM is created and the startup script has finished running:
 1. Use an **RDP client** (e.g., **Remote Desktop Connection** on Windows or **Remmina** on Linux) to connect to your VM.
 2. Use your VM's **public IP address** and **port 3389** for XRDP.
-3. Log in with the **root user** and the password specified in the script (`your_new_password`).
+3. Log in with the **rdpuser user** and the password specified in the script (`your_rdpuser_password`).
 
 ### Step 4: Customizing the Script
 You can modify the `emptydebian_v1_script.sh` file to:
 - Set a different root password by editing the line:
 
-echo "rdpuser:your_new_password" | sudo chpasswd
+echo "rdpuser:your_rdpuser_password" | sudo chpasswd
 
 - Customize the GNOME environment, XRDP settings, or install additional software by updating the startup script as needed.
 
@@ -90,5 +90,6 @@ To avoid unnecessary costs, remember to delete the VM when you're done using it:
 
 gcloud compute instances delete debianvmdesktop --zone=<your-zone>
 
+#### Step 6: Change password to your rdpuser
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
