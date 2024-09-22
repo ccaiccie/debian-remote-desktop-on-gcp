@@ -9,8 +9,8 @@ This project consists of two files:
 This repository contains the necessary scripts to automate the setup of a **Debian 12** virtual machine on **Google Cloud** using **gcloud CLI**. The VM will have **GNOME** as the desktop environment, **XRDP** for remote access, and **Visual Studio Code** pre-installed.
 
 ### Files:
-- **emptydebian_v1.sh**: A script to create a Google Cloud VM with the required specifications.
-- **emptydebian_v1_script.sh**: A startup script to be executed on the VM to set up GNOME, XRDP, and Visual Studio Code.
+- **debian-remote-desktop.sh**: A script to create a Google Cloud VM with the required specifications.
+- **debian-remote-desktop_script.sh**: A startup script to be executed on the VM to set up GNOME, XRDP, and Visual Studio Code.
 
 ### Features:
 - Provisions a **Debian 12** virtual machine using **Google Cloud**.
@@ -70,7 +70,7 @@ echo "rdpuser:your_new_password" | sudo chpasswd
 
 ## Contents of the Project
 
-### `debian-remote-desktop-on-gcp.sh`
+### `debian-remote-desktop.sh`
 This script provisions a Debian 12 VM on Google Cloud. The VM is created with the following specifications:
 - **Machine Type**: `n2-standard-4`
 - **20 GB Balanced Persistent Disk**
@@ -78,7 +78,7 @@ This script provisions a Debian 12 VM on Google Cloud. The VM is created with th
 - **Remote Desktop Access**: Enabled via XRDP (Port 3389)
 - **Startup Script**: Includes the necessary setup for GNOME, XRDP, and Visual Studio Code.
 
-### `debian-remote-desktop-on-gcp_script.sh`
+### `debian-remote-desktop_script.sh`
 This script is passed to the VM as a **startup script**. It performs the following tasks:
 - Installs **GNOME** and **XRDP**.
 - Configures **root login** with password authentication for XRDP.
