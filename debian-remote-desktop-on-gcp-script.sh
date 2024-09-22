@@ -52,6 +52,7 @@ if [ ! -f "$MARKER_FILE" ]; then
     # Update the dconf database to apply settings
     sudo dconf update
     # Install Visual Studio Code
+    sudo apt install -y xdg-utils
     wget https://go.microsoft.com/fwlink/?LinkID=760868 -O vscode.deb
     sudo dpkg -i vscode.deb
 
