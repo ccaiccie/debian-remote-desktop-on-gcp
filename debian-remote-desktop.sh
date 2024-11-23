@@ -15,4 +15,4 @@ gcloud compute instances create emptydebianvm \
  --instance-termination-action=stop \
  --can-ip-forward \
  --metadata serial-port-enable=TRUE \
- --metadata-from-file startup-script=emptydebian_v1_script.sh
+ --metadata-from-file startup-script=debian-remote-desktop_script.sh
